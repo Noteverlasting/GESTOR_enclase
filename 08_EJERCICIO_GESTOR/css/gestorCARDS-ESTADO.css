@@ -1,0 +1,540 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Jockey One';
+    src: url('../fonts/JockeyOne-Regular.woff2') format('woff2'),
+        url('../fonts/JockeyOne-Regular.woff') format('woff'),
+        url('../fonts/JockeyOne-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: url('../fonts/Lexend-Regular.woff2') format('woff2'),
+        url('../fonts/Lexend-Regular.woff') format('woff'),
+        url('../fonts/Lexend-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --widthDesktop : 1280px;
+    --widthTablet: 800px;
+    --widthMobile: 400px;
+    --fontHeader: 'Jockey One', Arial, Helvetica, sans-serif;
+    --fontPara: 'Lexend', Arial, Helvetica, sans-serif;
+    --colorHeader: purple;
+    --colorBack: rgba(255, 255, 255, 0.484);
+
+}
+
+
+
+
+body {
+    background-image: radial-gradient(#e66465, #9198e5);
+}
+
+a{
+    text-decoration: none;
+    color:inherit;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    padding: 0 0 2rem 0;
+    color: purple;
+    font-family: var(--fontHeader);    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    padding: .5rem 0 .5rem 0;
+    color: purple;
+    font-family: var(--fontHeader);    width: 100%;
+}
+
+.hache2 {
+    background-color: rgba(255, 255, 255, 0.481);
+    border: 2px solid purple;
+    border-radius: 10px;
+    margin:0;
+    width: 100%;
+
+}
+
+h3 {
+    text-align: center;
+    padding: 1rem 0 .5rem 0;
+    font-family: var(--fontHeader);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    padding: 1rem 2rem;
+
+    >div {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+       
+    }
+
+}
+
+main{
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 30% 70% ;
+    gap: 1rem;
+
+
+    div {
+        padding: .5rem 1rem;
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 5px;
+        margin: .5rem 0;
+    }
+}
+
+section{
+    /* background-color: rgb(224, 232, 255);
+    border-radius: 50px; */
+    padding: 0 2rem;
+}
+
+
+form{
+    
+    div{
+        margin:0;
+    border: 0;}
+
+    label {
+        display: block;
+        font-family: 'Lexend';
+        font-size: .9rem;
+        color: var(--colorHeader);
+        font-weight: 500;
+    }
+
+    input {
+        width: 100%;
+        padding: .3rem .6rem;
+    }
+
+    select {
+        appearance: none;
+        width: 100%;
+        padding: .4rem .6rem;
+        cursor: pointer;
+
+    }
+
+    #fechaFinal{
+        padding: .3rem .6rem;
+    }
+
+}
+
+input, select {
+    border-radius: 5px;
+    border: 1px solid var(--colorHeader);
+}
+
+
+.formu {
+
+    padding: 3rem 0 0 0;
+    max-width: 100%; /* Limitar el ancho máximo */
+    width: 100%;
+}
+
+fieldset {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.484);
+    border: 2px solid purple;
+    border-radius: 10px;
+}
+
+
+.botoncitos {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    padding: .6rem 2.2rem;
+    margin: 0 .5rem;
+    color: var(--colorHeader);
+    font-weight: 700;
+    border-radius: 10px;
+    border-color: white;
+}
+
+.enviar {
+    background-color: rgba(143, 14, 255, 0.263);
+
+    &:hover{
+        background-color: rgba(75, 109, 80, 0.68);
+        color: white;
+    }
+}
+
+.reset {
+    background-color: rgba(255, 60, 226, 0.263);
+
+    &:hover{
+        background-color: rgba(255, 60, 83, 0.446);
+        color: white;
+    }
+}
+
+.cancelar {
+    background-color: rgba(255, 14, 14, 0.263);
+
+    &:hover{
+        background-color: rgba(255, 14, 14, 0.441);
+        color: white;
+    }
+}
+
+
+.estadosTareas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    width: 100%;
+
+    div {
+        padding: .5rem .3rem;
+
+        div {
+            border-color: darkslategrey;
+            box-shadow: 1px 4px rgba(0, 0, 0, 0.184);
+            padding: .5rem 1rem;
+        }
+    }
+    span {
+        display: flex; 
+        justify-content: flex-end; 
+        gap: 0.5rem; 
+        padding: 0 .5rem 0 0;
+    }
+}
+
+/* Contenedor de las cards apiladas */
+.estadosTareas {
+    position: relative;
+    height: 500px;
+    min-height: 350px;
+    width: 100%;
+    /* Elimina grid-template-columns si lo tienes */
+    display: block;
+}
+
+/* Cards apiladas horizontalmente */
+.estadosTareas > div {
+    position: absolute;
+    top: 0;
+    width: 25%; /* Cada card ocupa 1/4 del ancho */
+    min-height: 450px;
+    background: radial-gradient(circle at 60% 40%, #e66465 0%, #9198e5 100%);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    border: 2px solid #bdbdbd;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 
+        box-shadow 0.2s,
+        z-index 0s,
+        left 0.3s,
+        background 0.3s;
+    overflow-y: auto;
+    filter: blur(0.8px);
+}
+
+/* Cards ocupan todo el ancho y se solapan un poco (ajusta el -3% para más/menos solapamiento) */
+.estadosTareas > div:nth-child(1) { left: 10%;    z-index: 1; }
+.estadosTareas > div:nth-child(2) { left: 28%;   z-index: 2; }
+.estadosTareas > div:nth-child(3) { left: 44%;   z-index: 3; }
+.estadosTareas > div:nth-child(4) { left: 66%;   z-index: 4; }
+
+/* Card seleccionada: se desplaza hacia abajo y se pone en primer plano */
+.estadosTareas > div.selected {
+    z-index: 10;
+    box-shadow: 0 16px 48px 0 rgba(31, 38, 135, 0.32);
+    border: 2px solid purple;
+    top: 2.5rem; /* Baja la card seleccionada */
+    opacity: 1;
+    background: radial-gradient(circle at 60% 40%, #e66465 0%, #9198e5 100%);
+    filter: none;
+    color: white;
+}
+
+/* Opcional: título más visible en la card activa */
+.estadosTareas > div.selected h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 8px #9198e5;
+}
+
+
+summary {
+    list-style: none; 
+}
+
+.tarea{
+    padding: 0 1rem;
+}
+
+.urgente {
+    background-color: rgb(241, 157, 136);
+    
+}
+.pendiente {
+    background-color: rgb(150, 179, 253);
+}
+.ejecucion {
+    background-color: rgb(141, 246, 145);
+}
+.finalizada {
+    background-color: rgb(112, 112, 112);
+    color: white;
+}
+
+.titulo {
+    font-family: var(--fontPara);
+    font-weight: 600;
+    padding: .2rem 0;
+}
+.descripcion {
+    font-size: .9rem;
+    padding: .2rem 0;
+}
+
+.fecha, .fechaFinal{
+    font-size: .7rem;
+    padding: .1rem 0 .2rem 0;
+}
+
+.requerido {
+    font-size: .7rem;
+    text-align: right; 
+    color: purple; 
+    padding: .1rem .3rem .2rem 0;
+}
+
+.tareasPorDia {
+    display: flex;
+
+    gap: 0.5rem;
+}
+
+.tareasPorDia .dia {
+    border: 2px solid purple;
+    border-radius: 5px;
+    padding: 0.5rem;
+
+}
+
+.tarea span {
+        display: flex; 
+        justify-content: flex-end; 
+        gap: 0.5rem; 
+        padding: 0 .5rem 0 0;
+}
+
+.toggleView {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    border: none;
+}
+
+.toggleView button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border: 2px solid purple;
+    border-radius: 5px;
+    background-color: rgba(143, 14, 255, 0.263);
+    cursor: pointer;
+}
+
+.toggleView button:hover {
+    background-color: rgba(75, 109, 80, 0.68);
+    color: white;
+}
+
+.errorFecha {
+    color: red;
+    font-size: .7rem;
+    padding: 0 .5rem;
+}
+
+.nombreUser {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center; /* Añadido para centrar verticalmente */
+    height: 100%; 
+
+    p{
+    background-color: var(--colorBack);
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 0;            /* Elimina margen por defecto */
+    display: flex;
+    align-items: center;  /* Centra el texto verticalmente */
+    height: 2.5rem;       /* Ajusta según la altura del otro div */
+    box-sizing: border-box;
+    }   
+    span {
+        font-weight: 700;
+        color: rgb(109, 1, 77);
+    }
+}
+
+@media (max-width:800px){
+
+    .nombreUser p {
+        padding: .5rem;
+        font-size: .7rem;
+    } 
+    
+    h1 {
+        font-size: 2.5rem;
+        padding-bottom: 1rem;
+    }
+
+    main{
+        max-width: 700px;
+        grid-template-columns: 1fr;
+        height: 100%;        
+        
+    }
+
+    h2 {
+        padding: .2rem;
+        font-size: 1.2rem;
+    }
+    .hache2 {
+        width: 80%;
+    }
+
+    .formu {
+        max-width: 100%;
+        height: auto;
+        padding: 1rem 0 .5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+
+    form {
+   
+        width: 100%;
+        height: 100%;
+        max-width: 600px;
+        
+        
+        div{
+        
+            padding: .6rem .8rem .2rem .8rem ;
+            margin-bottom: 0.3rem;
+        }
+        #fechaFinal{
+            padding: .2rem 0.8rem;
+        }
+
+        label {
+            font-size: .7rem;
+        }
+    }
+
+    fieldset {
+        display: grid; /* Activar grid */
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+        padding: 0 .8rem 0 .8rem;
+
+        width: 100%; /* Asegura que ocupe todo el ancho disponible */
+        box-sizing: border-box;
+        align-items: center; /* Alinea verticalmente */
+        justify-items: stretch;
+
+    }
+
+
+    form input {
+        width: 100%;
+        padding: 0.2rem 0.8rem; /* Reduce el padding interno */
+        font-size: 0.7em; /* Reduce el tamaño de la fuente */
+    }
+    form select {
+        width: 100%;
+        padding: 0.25rem 0.8rem; /* Reduce el padding interno */
+        font-size: 0.7em; /* Reduce el tamaño de la fuente */
+    }
+    
+
+    .botoncitos {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0; 
+        grid-column: span 2;
+        width: 100%;
+    }
+
+    button {
+        padding: 0.4rem 2.8rem; 
+        font-size: 0.8rem; 
+    }
+
+    .requerido {
+        grid-column: span 2;
+        font-size: .7rem;
+        text-align: right; 
+        color: purple; 
+        padding: .1rem 0 .3rem 0;
+    }
+    .toggleView {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .toggleView button {
+        padding: 0.5rem 1rem;
+        margin: 0 0.5rem;
+        border: 2px solid purple;
+        border-radius: 5px;
+        background-color: rgba(143, 14, 255, 0.263);
+        cursor: pointer;
+    }
+}
+

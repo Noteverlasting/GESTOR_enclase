@@ -1,0 +1,23 @@
+
+
+ Hay que crear una aplicación para la gestión de tareas.
+
+Una tarea puede tener cuatro estados : Urgente, Pendiente, Ejecución, Finalizada. Se mostrarán primero en ese orden y después por fecha.
+
+A
+
+Cada tarea aparecerá separada de las demás, con un fondo de color diferente para cada tipo.
+Sin embargo en todas ellas debe constar : título, descripción, fecha de inserción o actualización (que la pondrá el sistema, no el usuario)
+
+Ejemplo:
+Título: Estudiar mucho PHP
+Descripción: Me encanta PHP y le voy a dedicar un montón de horas 
+Fecha 23/04/2024
+(no es necesario poner el "Titulo:" ni la "Descripción:" porque ya se ve que son).
+
+
+Debes entregar el código necesario y la base de datos (que se llamará como tú, así: tareas_maria, por ejemplo) en un fichero zip, de esta manera : 
+UF1844_AC_nombre_apellido_gestor_tareas.zip
+
+Código de referencia:
+https://github.com/classesdeferran/colores_favoritos

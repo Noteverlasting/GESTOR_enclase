@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Jockey One';
+    src: url('JockeyOne-Regular.woff2') format('woff2'),
+        url('JockeyOne-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
