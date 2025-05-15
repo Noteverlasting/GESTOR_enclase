@@ -22,8 +22,16 @@ $preparacion -> execute();
 // Obtención de valores seleccionados y transformacion en un array asociativo
 $arrayFilas = $preparacion -> fetchAll();
 
-// Agrupar tareas por día de la semana para la traduccion al mostrarlas en pantalla
+
+
+// Creamos una variable para la fecha de hoy
+$hoy = date('Y-m-d');
+// Creamos un array para almacenar las tareas por dia
 $tareasPorDia = [];
+// Creamos un array para almacenar las tareas fuera de fecha y sin fecha
+$tareasFueraDeFecha = [];
+$tareasSinFecha = [];
+// Creamos un array para almacenar los dias de la semana en español traducidos de sus homonimos
 $dias = [
     'Monday' => 'lunes',
     'Tuesday' => 'martes',
@@ -33,22 +41,50 @@ $dias = [
     'Saturday' => 'sábado',
     'Sunday' => 'domingo'
 ];
-// foreach para recorrer el array de tareas y agruparlas por día de la seman
+// foreach para recorrer el array de tareas y agruparlas por día de la semana
 foreach ($arrayFilas as $fila) {
-    // Usamos un ternario para comprobar si la tarea tiene el campo 'fechaFinal', si es asi se le asigna un dia, si no se le asigna 'Sin Fecha'.
+    if (!empty($fila['fechaFinal'])) {
+        if ($fila['fechaFinal'] < $hoy) {
+            $tareasFueraDeFecha[] = $fila;
+        } else {
     // Se utiliza la función date('l', strtotime($fila['fechaFinal']))
     // la 'l' en date() devuelve el nombre completo del día de la semana en inglés y con strtotime() se convierte la 'fechaFinal' en un timestamp,
     // se traduce al español usando el array $dias.
-    $diaSemana = $fila['fechaFinal'] ? $dias[date('l', strtotime($fila['fechaFinal']))] : 'Sin Fecha'; 
-    $tareasPorDia[$diaSemana][] = $fila;
+        //     $diaSemana = $dias[date('l', strtotime($fila['fechaFinal']))];
+        //     $tareasPorDia[$diaSemana][] = $fila;
+        // }
+            $fecha = $fila['fechaFinal'];
+            $diaSemana = $dias[date('l', strtotime($fecha))];
+            if (!isset($tareasPorDia[$fecha])) {
+                $tareasPorDia[$fecha] = [
+                    'dia' => $diaSemana,
+                    'fecha' => $fecha,
+                    'tareas' => []
+                ];
+            }
+            $tareasPorDia[$fecha]['tareas'][] = $fila;
+        }
+    } else {
+        $tareasSinFecha[] = $fila;
+    }
 }
 
-// Ordenar $tareasPorDia para que 'Sin Fecha' vaya primero y el resto por fecha
-uksort($tareasPorDia, function($a, $b) {
-    if ($a === 'Sin Fecha') return -1;
-    if ($b === 'Sin Fecha') return 1;
-    return 0;
-});
+// Ordenamos las tareas por fecha con ksort, que ordena un array asociativo por sus claves, que en este caso son las fechas.
+ksort($tareasPorDia);
+
+// Construimos el array final en el orden deseado, primero se muestran tareas fuera de fecha, luego sin fecha y despues ordenadas por fecha.
+$tareasPorDiaFinal = [];
+if (!empty($tareasFueraDeFecha)) {
+    $tareasPorDiaFinal['Tareas fuera de fecha'] = $tareasFueraDeFecha;
+}
+if (!empty($tareasSinFecha)) {
+    $tareasPorDiaFinal['Sin Fecha'] = $tareasSinFecha;
+}
+foreach ($tareasPorDia as $fecha => $info) {
+    $titulo = $info['dia'] . ' ' . date('d/m/Y', strtotime($fecha));
+    $tareasPorDiaFinal[$titulo] = $info['tareas'];
+}
+
 
 $conn = null;
 
@@ -64,14 +100,9 @@ $conn = null;
     <link rel="stylesheet" href="css/gestor.css">
 </head>
 <body>
-    <header>
-        <div class="nombreUser">
-            <p>
-                Hola <span><?= $_SESSION['usuario'] ?></span> ! Qué tal?
-            </p>
-        </div>
-        <div><h1>GESTOR DE TAREAS</h1></div>
-    </header>
+<?php
+    include_once '../modulos/header.php';
+    ?>
 <main>
     <section class="formu">
         <?php if ($_GET) : ?>
@@ -177,53 +208,71 @@ $conn = null;
         <?php  endif; ?>
         <!-- Añado un boton para alternar la vista de las tareas por dia o estado -->
         <div class="toggleView">
-    <button id="toggleEstado">Ver por Estado</button>
-    <button id="toggleDia">Ver por Día</button>
+    <button id="toggleEstado">ver por Estado</button>
+    <button id="toggleDia">ver por Día</button>
 </div>
     </section>
     <section class="estadosTareas">
+    <h2>Tareas por estado</h2>
+    <div class="estadosGrid">
         <div>
             <h3>Urgentes</h3>
-            <?php foreach ($arrayFilas as $fila): ?>
-                <?php if ($fila['estado'] === 'urgente'): ?>
-                    <div class="tarea urgente">
-                        <details>
-                            <summary class="titulo"><i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?></summary>
-                            <p class="descripcion"><?= htmlspecialchars($fila['descripcion'], ENT_QUOTES, 'UTF-8') ?></p>
-                            <p class="fecha">Añadido: <?= htmlspecialchars($fila['fecha'], ENT_QUOTES, 'UTF-8') ?></p>
-                            <?php if ($fila['fechaFinal']): ?>
-                            <p class="fechaFinal">Fecha fin: <?= htmlspecialchars($fila['fechaFinal'], ENT_QUOTES, 'UTF-8') ?></p>
-                            <?php endif; ?>
+<?php foreach ($arrayFilas as $fila): ?>
+    <?php if ($fila['estado'] === 'urgente'): ?>
+        <?php
+        $fueraDeFecha = !empty($fila['fechaFinal']) && $fila['fechaFinal'] < $hoy;
+        ?>
+        <div class="tarea <?= $fueraDeFecha ? 'fueraDeFecha' : '' ?> urgente">
+                <details>
+                    <summary class="titulo">
+                        <?php if ($fueraDeFecha): ?>
+                        <i class="fa-solid fa-triangle-exclamation" style="color: orange;" title="Tarea fuera de fecha"></i>
+                        <?php endif; ?>
+                        <i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                    </summary>                            
+                        <p class="descripcion"><?= htmlspecialchars($fila['descripcion'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <p class="fecha">Añadido: <?= htmlspecialchars($fila['fecha'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <?php if ($fila['fechaFinal']): ?>
+                        <p class="fechaFinal">Fecha fin: <?= htmlspecialchars($fila['fechaFinal'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <?php endif; ?>
                         
-                            <span>
-                                <a href="delete.php?id=<?=$fila['idTarea']?>" title="Eliminar tarea">
-                                <i class="fa-solid fa-trash fa-xs" ></i>
-                                </a>
-                                <a href="index.php?id=<?=$fila['idTarea']?>&titulo=<?= str_replace(" ", "%20", $fila['titulo'])?>&descripcion=<?= str_replace(" ", "%20", $fila['descripcion'])?>&estado=<?=$fila['estado']?>" title="Modificar tarea">
-                                <i class="fa-solid fa-pen fa-xs" ></i>
-                                </a>
-                                <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=pendiente" title="Marcar como pendiente">
-                                <i class="fa-solid fa-clock fa-xs" style="color: blue;"></i>
-                                </a>
-                                <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=ejecucion" title="Marcar como en ejecución">
-                                <i class="fa-solid fa-spinner fa-xs" style="color: green;"></i>
-                                </a>
-                                <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=finalizada" title="Marcar como finalizada">
-                                <i class="fa-solid fa-check fa-xs" style="color: gray;"></i>
-                                </a>
-                            </span>
-                        </details>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
+                        <span>
+                            <a href="delete.php?id=<?=$fila['idTarea']?>" title="Eliminar tarea">
+                            <i class="fa-solid fa-trash fa-xs" ></i>
+                            </a>
+                            <a href="index.php?id=<?=$fila['idTarea']?>&titulo=<?= str_replace(" ", "%20", $fila['titulo'])?>&descripcion=<?= str_replace(" ", "%20", $fila['descripcion'])?>&estado=<?=$fila['estado']?>" title="Modificar tarea">
+                            <i class="fa-solid fa-pen fa-xs" ></i>
+                            </a>
+                            <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=pendiente" title="Marcar como pendiente">
+                            <i class="fa-solid fa-clock fa-xs" style="color: blue;"></i>
+                            </a>
+                            <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=ejecucion" title="Marcar como en ejecución">
+                            <i class="fa-solid fa-spinner fa-xs" style="color: green;"></i>
+                            </a>
+                            <a href="updatestado.php?id=<?=$fila['idTarea']?>&estado=finalizada" title="Marcar como finalizada">
+                            <i class="fa-solid fa-check fa-xs" style="color: gray;"></i>
+                            </a>
+                        </span>
+                </details>
+            </div>
+    <?php endif; ?>
+<?php endforeach; ?>
         </div>
         <div>
             <h3>Pendientes</h3>
-            <?php foreach ($arrayFilas as $fila): ?>
-                <?php if ($fila['estado'] === 'pendiente'): ?>
-                    <div class="tarea pendiente">
-                    <details>
-                        <summary class="titulo"><i class="fa-solid fa-angle-down"></i> <?= $fila['titulo'] ?></summary>
+<?php foreach ($arrayFilas as $fila): ?>
+    <?php if ($fila['estado'] === 'pendiente'): ?>
+        <?php
+        $fueraDeFecha = !empty($fila['fechaFinal']) && $fila['fechaFinal'] < $hoy;
+        ?>
+        <div class="tarea <?= $fueraDeFecha ? 'fueraDeFecha' : '' ?> pendiente">
+                <details>
+                    <summary class="titulo">
+                        <?php if ($fueraDeFecha): ?>
+                        <i class="fa-solid fa-triangle-exclamation" style="color: orange;" title="Tarea fuera de fecha"></i>
+                        <?php endif; ?>
+                        <i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                    </summary>                        
                         <p class="descripcion"><?= $fila['descripcion'] ?></p>
                         <p class="fecha">Añadido: <?= $fila['fecha'] ?></p>
                         <?php if ($fila['fechaFinal']): ?>
@@ -254,11 +303,19 @@ $conn = null;
         </div>
         <div>
             <h3>En ejecución</h3>
-            <?php foreach ($arrayFilas as $fila): ?>
-                <?php if ($fila['estado'] === 'ejecucion'): ?>
-                    <div class="tarea ejecucion">
-                    <details>
-                        <summary class="titulo"><i class="fa-solid fa-angle-down"></i> <?= $fila['titulo'] ?></summary>
+<?php foreach ($arrayFilas as $fila): ?>
+    <?php if ($fila['estado'] === 'ejecucion'): ?>
+        <?php
+        $fueraDeFecha = !empty($fila['fechaFinal']) && $fila['fechaFinal'] < $hoy;
+        ?>
+        <div class="tarea <?= $fueraDeFecha ? 'fueraDeFecha' : '' ?> ejecucion">
+                <details>
+                    <summary class="titulo">
+                        <?php if ($fueraDeFecha): ?>
+                        <i class="fa-solid fa-triangle-exclamation" style="color: orange;" title="Tarea fuera de fecha"></i>
+                        <?php endif; ?>
+                        <i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                    </summary>                       
                         <p class="descripcion"><?= $fila['descripcion'] ?></p>
                         <p class="fecha">Añadido: <?= $fila['fecha'] ?></p>
                         <?php if ($fila['fechaFinal']): ?>
@@ -289,11 +346,19 @@ $conn = null;
         </div>
         <div>
             <h3>Finalizadas</h3>
-            <?php foreach ($arrayFilas as $fila): ?>
-                <?php if ($fila['estado'] === 'finalizada'): ?>
-                    <div class="tarea finalizada">
-                    <details>
-                        <summary class="titulo"><i class="fa-solid fa-angle-down"></i> <?= $fila['titulo'] ?></summary>
+<?php foreach ($arrayFilas as $fila): ?>
+    <?php if ($fila['estado'] === 'finalizada'): ?>
+        <?php
+        $fueraDeFecha = !empty($fila['fechaFinal']) && $fila['fechaFinal'] < $hoy;
+        ?>
+        <div class="tarea <?= $fueraDeFecha ? 'fueraDeFecha' : '' ?> finalizada">
+                <details>
+                    <summary class="titulo">
+                        <?php if ($fueraDeFecha): ?>
+                        <i class="fa-solid fa-triangle-exclamation" style="color: orange;" title="Tarea fuera de fecha"></i>
+                        <?php endif; ?>
+                        <i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                    </summary>                       
                         <p class="descripcion"><?= $fila['descripcion'] ?></p>
                         <p class="fecha">Añadido: <?= $fila['fecha'] ?></p>
                         <?php if ($fila['fechaFinal']): ?>
@@ -322,20 +387,30 @@ $conn = null;
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        </div>
     </section>
-    <section class="tareasPorDia" style="display: none;">
+<section class="tareasPorDia" style="display: none;">
     <h2>Tareas por Día de la Semana</h2>
-    <?php foreach ($tareasPorDia as $dia => $tareas): ?>
+    <?php foreach ($tareasPorDiaFinal as $dia => $tareas): ?>
         <div class="dia">
             <?php 
-            // Obtener la fecha concreta de la primera tarea del día
-            $fechaConcreta = $tareas[0]['fechaFinal'] ? date('d/m/Y', strtotime($tareas[0]['fechaFinal'])) : '';
+            // Solo mostrar fecha concreta si no es "Tareas fuera de fecha" ni "Sin Fecha"
+            $fechaConcreta = (!in_array($dia, ['Tareas fuera de fecha', 'Sin Fecha']) && $tareas[0]['fechaFinal'])
+                ? date('d/m/Y', strtotime($tareas[0]['fechaFinal'])) : '';
             ?>
-                <h3><?= htmlspecialchars($dia, ENT_QUOTES, 'UTF-8') ?><?= $fechaConcreta ? htmlspecialchars($fechaConcreta, ENT_QUOTES, 'UTF-8') : '' ?></h3>
-                <?php foreach ($tareas as $tarea): ?>
-                    <div class="tarea <?= htmlspecialchars($tarea['estado'], ENT_QUOTES, 'UTF-8') ?>">
+            <h3><?= htmlspecialchars($dia, ENT_QUOTES, 'UTF-8') ?></h3>
+            <?php foreach ($tareas as $tarea): ?>
+                <?php
+                $fueraDeFecha = !empty($tarea['fechaFinal']) && $tarea['fechaFinal'] < $hoy;
+                ?>
+                <div class="tarea <?= $fueraDeFecha ? 'fueraDeFecha' : '' ?> <?= htmlspecialchars($tarea['estado'], ENT_QUOTES, 'UTF-8') ?>">
                     <details>
-                        <summary class="titulo"><i class="fa-solid fa-angle-down"></i><?= htmlspecialchars($tarea['titulo'], ENT_QUOTES, 'UTF-8') ?></summary>
+                        <summary class="titulo">
+                            <?php if ($fueraDeFecha): ?>
+                                <i class="fa-solid fa-triangle-exclamation" style="color: orange;" title="Tarea fuera de fecha"></i>
+                            <?php endif; ?>
+                            <i class="fa-solid fa-angle-down"></i> <?= htmlspecialchars($tarea['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                        </summary>
                         <p class="descripcion"><?= htmlspecialchars($tarea['descripcion'], ENT_QUOTES, 'UTF-8') ?></p>
                         <p class="fecha">Añadido: <?= htmlspecialchars($tarea['fecha'], ENT_QUOTES, 'UTF-8') ?></p>
                         <?php if ($tarea['fechaFinal']): ?>

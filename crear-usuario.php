@@ -19,12 +19,17 @@ require_once 'pdo_connection.php';
     <meta name="description" content="Aplicacion de colores de usuarios">
     <meta name="author" content="Omar">
     <meta name="keywords" content="colores, usuarios, php, mysql"> -->
-     <?php include_once 'etiquetasMeta.php'; ?> 
+    <?php include_once 'modulos/etiquetasMeta.php'; ?> 
     <title>Usuarios de 'colores'</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="08_EJERCICIO_GESTOR/img/favicon.gif" type="image/x-icon"> 
+    <link rel="stylesheet" href="08_EJERCICIO_GESTOR/css/gestor.css">
+    
 </head>
 <body>
-    <main>
+    <?php
+    include_once 'modulos/header.php';
+    ?>
+    <main class="index-main crear">
         <form action="insert_user.php" method="post">
             <fieldset>
             <h1>Crear cuenta</h1>
@@ -62,12 +67,13 @@ require_once 'pdo_connection.php';
             <p> Usuario o contraseña incorrectos </p>
             <?php endif; ?>
         </div>
-        <div class="botones">
+        <div class="botoncitos">
             <button type="submit"> Enviar datos </button>
             <button type="reset"> Borrar datos </button>
         </div>
+        <div>
         <a href="index.php"> Volver</a>
-
+        </div>
         </fieldset>
         </form>
     </main>

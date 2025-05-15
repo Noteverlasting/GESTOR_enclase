@@ -12,25 +12,56 @@ require_once 'pdo_connection.php';
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php include_once 'etiquetasMeta.php'; ?> 
+    <?php include_once 'modulos/etiquetasMeta.php'; ?>
+    
     <title>GESTOR DE TAREAS - LOGIN</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="08_EJERCICIO_GESTOR/img/favicon.gif" type="image/x-icon"> 
+    <link rel="stylesheet" href="08_EJERCICIO_GESTOR/css/gestor.css">
 </head>
 <body>
-    <header>
-        <nav class="index-nav">
-            <ul>
-                <li><a href="crear-usuario.php">Crear cuenta</a></li>
-                <li><a href="login.php">Iniciar sesion</a></li>
-            </ul>
-        </nav>
+    <header class="index-titulo">
+        <div class="nombreUser">
+            <div>
+                <?php 
+                if ($_SESSION['usuario']) : ?>
+                <form action="../logout.php" method="post">
+                    <button type="submit" class="btnLogout"> Cerrar sesion
+                    <i class="fa-solid fa-door-open" style="color: red;"></i>
+                    </button>
+                </form>
+                <form action="../perfil-usuario.php" method="post">
+                <button type="submit" class="btnAcceder"> Tu perfil
+                </button>
+                </form>
+            </div>
+            <p>
+                Hola <span><?= $_SESSION['usuario'] ?></span> ! Qué tal?
+            </p>
+        </div>
+
+            <?php else : ?>
+            <form action="index-login.php" method="post">
+                <button type="submit" class="btnAcceder"> Acceder
+                </button>
+            </form>
+            
+            <form action="crear-usuario.php" method="post">
+                <button type="submit" class="btnAcceder"> Crear cuenta
+                </button>
+            </form>            
+        </div></div>
+            <?php endif ?>
+
+        <div >
+            <h1>GESTOR DE TAREAS</h1>
+        </div>
     </header>
     <main class="index-main">
         <!--  Creamos un dialog       -->
-        <dialog id="login" open closedby="any">
+        <!-- <dialog id="login" open closedby="any">
             <form action="login.php" method="post">
                 <fieldset>
-                    <h1>Iniciar sesion</h1>
+                    <h2>Iniciar sesion</h2>
                     <div>
                         <label for="usuario">Nombre:</label>
                         <input type="text" name="usuario" id="usuario">
@@ -39,12 +70,10 @@ require_once 'pdo_connection.php';
                         <label for="password">Contraseña:</label>
                         <input type="password" name="password" id="password">
                     </div>
-                    <div>
-                    <a href="crear-usuario.php"> Crear cuenta</a>
-                    </div>
+
 
                     <div class="errorCuenta">
-                        <?php 
+                        <?php /*
                         if ($_SESSION['error']):
                         ?>
                         <p> Error en los datos </p>
@@ -55,7 +84,7 @@ require_once 'pdo_connection.php';
                         if ($_SESSION['errorUserInexistente']):
                         ?>
                         <p> Usuario o contraseña incorrectos </p>
-                        <?php endif; ?>
+                        <?php endif; */?>
                     </div>
                     <div class="botones">
                         <button type="submit"> Enviar datos </button>
@@ -65,7 +94,22 @@ require_once 'pdo_connection.php';
 
                 </fieldset>
             </form>
-        </dialog>
+        </dialog> -->
+    <section class="index-section">
+        <div>
+        <img src="08_EJERCICIO_GESTOR/img/home-imgs.png" alt="">
+        </div>
+        <div>
+            <h2> ¿Como organizar tus tareas?</h2>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime saepe cumque delectus. 
+            Nisi esse veritatis ratione suscipit, quo assumenda dolorem at nobis quia totam itaque officiis quos eius placeat ut?
+            In libero aperiam ipsum numquam sint, labore cum consequuntur, blanditiis molestias expedita esse corporis reprehenderit, 
+            repudiandae iusto. Earum similique, unde ipsa aperiam culpa cum debitis adipisci cumque sint ratione molestiae!
+        </div>
+    </section>
+    
+    
+    
     </main>
 </body>
 </html>
