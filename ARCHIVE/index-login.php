@@ -27,6 +27,7 @@ require_once 'pdo_connection.php';
         <dialog id="login" open closedby="any">
             <form action="login.php" method="post">
                 <fieldset>
+
                     <h2>Iniciar sesion</h2>
                     <div>
                         <label for="usuario">Nombre:</label>
@@ -58,8 +59,8 @@ require_once 'pdo_connection.php';
                         <button type="submit"> Enviar datos </button>
                         <button type="reset"> Borrar datos </button>
                     </div>
-        <div>
-        <a href="index.php"> Volver</a>
+        <div class="volver">
+            <p><a href="index.php"> volver a inicio</a></p>
         </div>                    
 
 

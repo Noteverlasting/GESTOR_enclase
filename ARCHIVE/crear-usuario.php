@@ -31,8 +31,8 @@ require_once 'pdo_connection.php';
     ?>
     <main class="index-main crear">
         <form action="insert_user.php" method="post">
-            <fieldset>
-            <h1>Crear cuenta</h1>
+            <fieldset class="crear-usuario">
+            <h2>Crear cuenta</h2>
         <div>
             <label for="usuario">Nombre:</label>
             <input type="text" name="usuario" id="usuario">
@@ -71,8 +71,8 @@ require_once 'pdo_connection.php';
             <button type="submit"> Enviar datos </button>
             <button type="reset"> Borrar datos </button>
         </div>
-        <div>
-        <a href="index.php"> Volver</a>
+        <div class="volver">
+            <p>Ya tienes cuenta? <a href="index-login.php"> Accede </a></p> 
         </div>
         </fieldset>
         </form>

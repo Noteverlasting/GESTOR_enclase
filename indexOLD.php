@@ -14,18 +14,15 @@ require_once 'pdo_connection.php';
 <head>
     <?php include_once 'modulos/etiquetasMeta.php'; ?>
     
-    <title>eytask // Gestor de tareas - LOGIN</title>
+    <title>GESTOR DE TAREAS - LOGIN</title>
     <link rel="shortcut icon" href="08_EJERCICIO_GESTOR/img/favicon.gif" type="image/x-icon"> 
     <link rel="stylesheet" href="08_EJERCICIO_GESTOR/css/gestor.css">
 </head>
 <body>
-    <?php
-    include_once 'modulos/header.php';
-    ?>
-    <!-- <header class="index-titulo">
+    <header class="index-titulo">
         <div class="nombreUser">
             <div>
-                < ?php 
+                <?php 
                 if ($_SESSION['usuario']) : ?>
                 <form action="../logout.php" method="post">
                     <button type="submit" class="btnLogout"> Cerrar sesion
@@ -38,11 +35,11 @@ require_once 'pdo_connection.php';
                 </form>
             </div>
             <p>
-                Hola <span>< ?= $_SESSION['usuario'] ?></span> ! Qué tal?
+                Hola <span><?= $_SESSION['usuario'] ?></span> ! Qué tal?
             </p>
         </div>
 
-            < ?php else : ?>
+            <?php else : ?>
             <form action="index-login.php" method="post">
                 <button type="submit" class="btnAcceder"> Acceder
                 </button>
@@ -53,12 +50,12 @@ require_once 'pdo_connection.php';
                 </button>
             </form>            
         </div></div>
-            < ?php endif ?>
+            <?php endif ?>
 
         <div >
             <h1>GESTOR DE TAREAS</h1>
         </div>
-    </header> -->
+    </header>
     <main class="index-main">
         <!--  Creamos un dialog       -->
         <!-- <dialog id="login" open closedby="any">
@@ -76,18 +73,18 @@ require_once 'pdo_connection.php';
 
 
                     <div class="errorCuenta">
-                        < ?php /*
+                        <?php /*
                         if ($_SESSION['error']):
                         ?>
                         <p> Error en los datos </p>
-                        < ?php endif; ?>
+                        <?php endif; ?>
                     </div>
                     <div class="errorCuenta">
-                        < ?php 
+                        <?php 
                         if ($_SESSION['errorUserInexistente']):
                         ?>
                         <p> Usuario o contraseña incorrectos </p>
-                        < ?php endif; */?>
+                        <?php endif; */?>
                     </div>
                     <div class="botones">
                         <button type="submit"> Enviar datos </button>
@@ -98,7 +95,7 @@ require_once 'pdo_connection.php';
                 </fieldset>
             </form>
         </dialog> -->
-        <section class="index-section">
+    <section class="index-section">
         <div>
         <img src="08_EJERCICIO_GESTOR/img/home-imgs.png" alt="">
         </div>
@@ -110,32 +107,11 @@ require_once 'pdo_connection.php';
             repudiandae iusto. Earum similique, unde ipsa aperiam culpa cum debitis adipisci cumque sint ratione molestiae!
         </div>
     </section>
-        <section>
-        <!-- ESTE PHP VA A RECIBIR LO QUE TENGAMOS EN LA VARIABLE, PERO SI NO ESTÁ DISPONIBLE, USA EL LOGIN -->
-        <?php 
-        $formulario = $_GET['formulario'] ?? 'login';
-        // CON EL SWITCH VAMOS A HACER QUE CARGUE UN FORMULARIO U OTRO EN FUNCION DE LO QUE LLEGUE POR URL GET
-        switch ($formulario) {
-            case 'login':
-                include_once 'modulos/formuLogin.php';
-                break;
-            case 'crear-usuario':
-                include_once 'modulos/formuCrearUser.php';
-                break;
-            case 'reset':
-                include_once 'modulos/formuResetPass.php';
-                break;
-            default:
-                include_once 'modulos/formuLogin.php';
-                break;
-        }
-        ?>
-    </section>
-
+    
+    
     
     </main>
 </body>
-<script src="js/index.js"></script>
 </html>
 
 <?php 
