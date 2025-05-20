@@ -511,15 +511,10 @@ button {
 .estadosTareas {
   width: 100%;
   margin-bottom: 2rem;
+  padding: 0 1rem;
 }
 
-.estadosTareas > h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  color: purple;
-  font-family: var(--fontHeader);
-}
+
 
 .estadosGrid {
   display: grid;
@@ -549,12 +544,20 @@ button {
 }
 
 .estadosTareas,
-.Tareaspordia {
-  width: 100%;
+.tareasPorDia {
+  /* width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  box-sizing: border-box;
+  box-sizing: border-box; */
+
+  >h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: purple;
+  font-family: var(--fontHeader);
+}
 }
 
 /* .estadosTareas {
