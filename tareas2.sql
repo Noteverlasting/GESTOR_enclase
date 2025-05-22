@@ -1,0 +1,9 @@
+USE tareas_omar;
+
+CREATE TABLE usuarios (
+idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+usuario VARCHAR(50) NOT NULL,
+email VARCHAR(100),
+telefono VARCHAR(13),
+password VARCHAR(255) NOT NULL
+);

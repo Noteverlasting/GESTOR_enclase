@@ -129,7 +129,6 @@ h3 {
 }
 
 /* HEADER */
-
 header {
   display: flex;
   flex-direction: column;
@@ -137,104 +136,109 @@ header {
   align-items: center;
   max-width: 100%;
   padding: 1rem 2rem;
-
-  > div {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    width: 100%;
-  }
-
-  .header-titulo {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-    justify-content: center; 
-
-    .h1-ey {
-      position: relative;
-      z-index: -1;
-      color: purple;
-      text-shadow: 
-        1px 1px 4px white, 
-        2px 2px 4px var(--colorClarito),
-        -2px -2px 4px var(--colorClarito), 
-        2px -2px 4px var(--colorClarito),
-        -2px 2px 4px var(--colorClarito);
-      margin: 0 0 0 -1rem;
-    }
-
-    .h1-task {
-      position: relative;
-      z-index: 1;
-      color: purple;
-      text-shadow: 
-        1px 1px 4px white, 
-        2px 2px 4px var(--colorClarito),
-        -2px -2px 4px var(--colorClarito), 
-        2px -2px 4px var(--colorClarito),
-        -2px 2px 4px var(--colorClarito);
-      margin: 0 0 0 -0.2rem;
-    }
-
-    .h1-img {
-      position: relative;
-      z-index: 0;
-      margin: 0 -0.6rem;
-    }
-
-    .h1-img img {
-      vertical-align: middle;
-      height: clamp(3rem, 2vw + 2rem, 4rem);
-      width: auto;
-      filter: drop-shadow(0 0 0 var(--colorClarito))
-        drop-shadow(1px 1px 0 var(--colorClarito))
-        drop-shadow(-1px -1px 1px var(--colorClarito))
-        drop-shadow(1px -1px 0 var(--colorClarito))
-        drop-shadow(-1px 1px 1px var(--colorClarito));
-    }
-  }
-
-  button {
-    background-color: transparent;
-    border: 1px dotted red;
-    color: red;
-    font-size: 0.8rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-  }
 }
+
+header > div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+
+.header-titulo {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.header-titulo .h1-ey,
+.header-titulo .h1-task {
+  position: relative;
+  z-index: 1;
+  color: purple;
+  text-shadow: 
+    1px 1px 4px white, 
+    2px 2px 4px var(--colorClarito),
+    -2px -2px 4px var(--colorClarito), 
+    2px -2px 4px var(--colorClarito),
+    -2px 2px 4px var(--colorClarito);
+}
+
+.header-titulo .h1-ey {
+  margin: 0 0 0 -1rem;
+}
+
+.header-titulo .h1-task {
+  margin: 0 0 0 -0.2rem;
+}
+
+.header-titulo .h1-img {
+  position: relative;
+  z-index: 0;
+  margin: 0 -0.6rem;
+}
+
+.header-titulo .h1-img img {
+  vertical-align: middle;
+  height: clamp(3rem, 2vw + 2rem, 4rem);
+  width: auto;
+  filter: drop-shadow(0 0 0 var(--colorClarito))
+    drop-shadow(1px 1px 0 var(--colorClarito))
+    drop-shadow(-1px -1px 1px var(--colorClarito))
+    drop-shadow(1px -1px 0 var(--colorClarito))
+    drop-shadow(-1px 1px 1px var(--colorClarito));
+}
+
+header button {
+  background-color: transparent;
+  border: 1px dotted red;
+  color: red;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btnLogout .logout-text {
+  display: inline;
+}
+
+/* NOMBRE USER */
 
 .nombreUser {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  height: 40px;
+  flex-wrap: wrap;
+}
 
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem; 
-  }
+.nombreUser > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  p {
-    background-color: var(--colorBack);
-    padding: 1rem;
-    border-radius: 10px;
-    margin: 0; 
-    display: flex;
-    align-items: center; 
-    height: 2.5rem; 
-    box-sizing: border-box;
-  }
-  span {
-    font-weight: 700;
-    color: rgb(109, 1, 77);
-    padding: 0 0 0 0.5rem;
-  }
+.nombreUser p {
+  background-color: var(--colorBack);
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  box-sizing: border-box;
+}
+
+.nombreUser span {
+  font-weight: 700;
+  color: rgb(109, 1, 77);
+  padding-left: 0.5rem;
 }
 
 .btnAcceder {
@@ -245,7 +249,6 @@ header {
   cursor: pointer;
   padding: 0.5rem 1rem;
 }
-
 /* MAIN */
 
 main {
@@ -721,10 +724,59 @@ summary {
 /* MEDIA QUERIES */
 
 @media (max-width: 800px) {
+
+
+  .nombreUser {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  /* .nombreUser > div {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  } */
+
   .nombreUser p {
     padding: 0.5rem;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
+
+  .btnLogout .logout-text {
+    display: none;
+  }
+
+  .btnLogout {
+    padding: 0.4rem;
+  }
+
+  .btnLogout i {
+    font-size: 1.2rem;
+  }
+
+  .btnAcceder {
+    width: 50%;
+    text-align: center;
+  }
+
+  /* .header-titulo {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .header-titulo h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-titulo .h1-img img {
+    height: 2.5rem;
+  } */
+
+
 
   /* h1 {
     font-size: 4.5rem;

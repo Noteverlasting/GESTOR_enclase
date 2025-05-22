@@ -16,11 +16,11 @@ require_once 'pdo_connection.php';
     
     <title>eytask // Gestor de tareas - LOGIN</title>
     <link rel="shortcut icon" href="08_EJERCICIO_GESTOR/img/favicon.gif" type="image/x-icon"> 
-    <link rel="stylesheet" href="08_EJERCICIO_GESTOR/css/gestor.css">
+    <link rel="stylesheet" href="08_EJERCICIO_GESTOR/css/copia.css">
 </head>
 <body>
     <?php
-    include_once 'modulos/header.php';
+    include_once 'modulos/headercopy.php';
     ?>
     <!-- <header class="index-titulo">
         <div class="nombreUser">
