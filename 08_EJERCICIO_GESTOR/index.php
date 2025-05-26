@@ -116,15 +116,15 @@ $conn = null;
                     <!-- SEGURIDAD PHP -- HoneyPot -->
                     <input type="text" name="web" style="display:none">
                     <input type="text" name="id" id="id" value="<?=$_GET['id']?>" hidden>
-                    <div>
+                    <div class="camposformu">
                         <label for="titulo">Titulo*:</label>
                         <input type="text" name="titulo" id="titulo" value="<?=$_GET['titulo']?>">
                     </div>
-                    <div>
+                    <div class="camposformu">
                         <label for="descripcion">Descripcion*:</label>
                         <input type="text" name="descripcion" id="descripcion" value="<?=$_GET['descripcion']?>">
                     </div>
-                    <div>
+                    <div class="camposformu">
                         <label for="estado">Estado de la tarea*:</label>
                         <select name="estado" id="estado" value="<?=$_GET['estado']?>">
                         <option value="urgente" style="color: red; font-weight: 700;">urgente</option>
@@ -133,14 +133,14 @@ $conn = null;
                         <option value="finalizada" style="color: gray; font-weight: 700;">finalizada</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="camposformu">
                         <label for="fechaFinal">Fecha de finalizacion (si precisa):</label>
                         <input type="date" name="fechaFinal" id="fechaFinal">
                     </div>
                     <div class="botoncitos">
-                        <button type="submit" class="enviar">MODIFICAR</button>
+                        <button type="submit" class="enviar">modificar</button>
                         <a href="index.php">
-                        <button type="button" class="cancelar">CANCELAR</button>
+                        <button type="button" class="cancelar">cancelar</button>
                         </a>
                     </div>
                     <p class="fecha" style="text-align: right; color: purple; padding-right:1rem;">(*)campos requeridos</p>
@@ -197,8 +197,8 @@ $conn = null;
 
 
                     <div class="botoncitos">
-                        <button type="submit" class="enviar">CREAR</button>
-                        <button type="reset" class="reset">LIMPIAR</button>
+                        <button type="submit" class="enviar">crear</button>
+                        <button type="reset" class="reset">limpiar</button>
                         
                     </div>
                     <p class="requerido">(*) campos requeridos</p>
@@ -446,15 +446,44 @@ $conn = null;
 // SCRIPT PARA EL BOTON DE CAMBIO DE VISTAS
 // Aqui se indica que el boton de 'Ver por Estado' muestre la vista de tareas por estado ocultando la otra vista
 // y viceversa para el boton de 'Ver por Dia'
-document.getElementById('toggleEstado').addEventListener('click', function () {
-    document.querySelector('.estadosTareas').style.display = 'grid';
-    document.querySelector('.tareasPorDia').style.display = 'none';
+// document.getElementById('toggleEstado').addEventListener('click', function () {
+//     document.querySelector('.estadosTareas').style.display = 'grid';
+//     document.querySelector('.tareasPorDia').style.display = 'none';
+// });
+
+// document.getElementById('toggleDia').addEventListener('click', function () {
+//     document.querySelector('.estadosTareas').style.display = 'none';
+//     document.querySelector('.tareasPorDia').style.display = 'grid';
+// });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Obtener referencias a los contenedores y botones
+  const vistaEstado = document.querySelector('.estadosTareas');
+  const vistaDia = document.querySelector('.tareasPorDia');
+  const btnEstado = document.getElementById('toggleEstado');
+  const btnDia = document.getElementById('toggleDia');
+
+  // Función para mostrar vista por estado
+  function mostrarVistaEstado() {
+    vistaEstado.style.display = 'block';  // o flex, según diseño
+    vistaDia.style.display = 'none';
+  }
+
+  // Función para mostrar vista por día
+  function mostrarVistaDia() {
+    vistaEstado.style.display = 'none';
+    vistaDia.style.display = 'flex';
+    vistaDia.style.flexDirection = "column";  // o block según diseño
+  }
+
+  // Al cargar la página, mostrar la vista por estado por defecto
+  mostrarVistaEstado();
+
+  // Añadir eventos a los botones para alternar vistas
+  btnEstado.addEventListener('click', mostrarVistaEstado);
+  btnDia.addEventListener('click', mostrarVistaDia);
 });
 
-document.getElementById('toggleDia').addEventListener('click', function () {
-    document.querySelector('.estadosTareas').style.display = 'none';
-    document.querySelector('.tareasPorDia').style.display = 'grid';
-});
 </script>
 </body>
 </html>

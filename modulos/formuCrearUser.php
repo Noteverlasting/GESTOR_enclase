@@ -1,4 +1,4 @@
-        <form action="insert_user.php" method="post">
+        <form action="insert_temporal.php" method="post">
             <fieldset class="crear-usuario">
             <h2>Crear cuenta</h2>
         <div>

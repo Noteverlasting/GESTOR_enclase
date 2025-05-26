@@ -45,6 +45,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  
 }
 
 :root {
@@ -742,12 +743,6 @@ summary {
     grid-template-columns: 1fr;
     height: 100%;
   }
-
-
-
-
-
-
 
   
   h2 {

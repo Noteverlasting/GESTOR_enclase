@@ -61,6 +61,9 @@
 }
 
 /* Estilos globales*/
+html {
+  overflow-y: scroll;
+}
 
 body {
   background-image: radial-gradient(#e66465, #9198e5);
@@ -82,28 +85,7 @@ h1 {
   font-weight: 700;
   letter-spacing: -12px;
   position: relative;
-
-  /* text-shadow:
-        1px 1px 4px white,
-        2px 2px 4px var(--colorClarito),
-        -2px -2px 4px var(--colorClarito), 
-        2px -2px 4px var(--colorClarito),
-        -2px 2px 4px var(--colorClarito); */
 }
-
-/* -3px -3px 0 var(--colorClarito),
-     3px -3px 0 var(--colorClarito),
-    -3px  3px 0 var(--colorClarito),
-     3px  3px 0 var(--colorClarito); */
-
-/* ESTILOS PARA h1 INDEX  */
-/* .index-titulo {
-    padding-bottom: 0;
-
-    h1{
-        font-size: 5rem;
-        padding: 8rem 0 0 0;}
-} */
 
 h2 {
   text-align: center;
@@ -222,6 +204,19 @@ header button {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  height: 2.5rem;
+}
+
+.usuario-info form {
+  height: 100%; /* Que el form ocupe toda la altura de su contenedor */
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+
+  >button {
+    height: 100%;
+  }
 }
 
 .nombreUser p {
@@ -279,74 +274,6 @@ max-width: var(--widthDesktop);
     padding: 0 0 1rem 0;
   }
 }
-
-/* .index-main-login{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-
-    h2{
-        font-size: 2.2rem;
-        padding: .5rem 0 1rem 0;
-    }
-
-    label {
-        display: block;
-        margin: .75rem 0 .4rem 0;
-    }
-
-    fieldset {
-        border: 1px solid #a59191;
-        border-radius: 10px;
-        width: 320px;
-        padding: .5rem 1rem 1rem 1rem;
-    }
-
-    div {
-
-        input {
-            width: 100%;
-            padding: .5rem 1rem;
-        }
-    }
-} */
-
-/* #login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    border: none;
-    border-radius: 10px;
-
-    .botones {
-        display: flex;
-        justify-content: space-around;
-        margin: 0;
-        padding: 0;
-    }
-    button{
-        margin: 0;
-        padding: .4rem 1rem;
-    }
-    button[type='submit'] {
-        background-color: rgba(50, 205, 50, 0.504);
-
-        &:hover {
-            background-color: limegreen;
-            color: wheat;
-        }
-    }
-    button[type='reset'] {
-        background-color: rgba(205, 50, 76, 0.405);
-
-        &:hover {
-            background-color: rgb(205, 50, 50);
-            color: wheat;
-        }
-    }
-} */
 
 /* SECTION */
 
@@ -417,11 +344,20 @@ select {
   width: 100%;
 }
 
+.formu >form >fieldset {
+  padding-top: 1rem;
+}
+
+.camposformu{
+  padding: 1rem 1.5rem .5rem 1.5rem;
+}
+
 fieldset {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.484);
   border: 2px solid purple;
   border-radius: 10px;
+
 }
 
 .crear-usuario {
@@ -443,6 +379,7 @@ fieldset {
   margin: 0;
   width: 100%;
   gap: 0.8rem;
+  padding-top: 1.5rem;
 
   button {
     margin: 0;
@@ -514,8 +451,13 @@ button {
 .estadosTareas {
   width: 100%;
   margin-bottom: 2rem;
-  padding: 0 1rem;
+  padding: 0.1px 1rem 0 1rem;
+  overflow: hidden;
+
+  display: block;
+  
 }
+
 
 
 .estadosGrid {
@@ -524,9 +466,13 @@ button {
   gap: 1.5rem;
   width: 100%;
   border: none;
+  margin-top: 0;
+  overflow: hidden; /* evita colapsamiento de márgenes */
+  padding-top: 0.5rem;
 }
 
 .estadosGrid > div {
+  border: 2px solid purple;
   border-radius: 12px;
   padding: 1rem 0.5rem 0.5rem 0.5rem;
   min-height: 250px; 
@@ -535,6 +481,8 @@ button {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  background-color: var(--colorBack);
+  margin-top: 0;
 }
 
 .estadosGrid h3 {
@@ -545,13 +493,12 @@ button {
   font-family: var(--fontHeader);
 }
 
+.tareasPorDia {
+  display:none;
+}
+
 .estadosTareas,
 .tareasPorDia {
-  /* width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  box-sizing: border-box; */
 
   >h2 {
   text-align: center;
@@ -559,31 +506,21 @@ button {
   font-size: 2rem;
   color: purple;
   font-family: var(--fontHeader);
+  /* height: 40.8px; */
+  /* line-height: 40.8px; */
+  padding-bottom: 0;
+  line-height: normal;
 }
+
+
 }
 
-/* .estadosTareas {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: .5rem;
-    width: 100%;
+.estadosTareas h2::after {
+    content: '';
+    display: block;
+    height: 0.1px;
+}
 
-    div {
-        padding: .5rem .3rem;
-
-        div {
-            
-            box-shadow: 1px 4px rgba(0, 0, 0, 0.184);
-            padding: .5rem 1rem;
-        }
-    }
-    span {
-        display: flex; 
-        justify-content: flex-end; 
-        gap: 0.5rem; 
-        padding: 0 .5rem 0 0;
-    }
-} */
 
 /* ESTILOS PARA LAS CARDS DE LAS TAREAS */
 .tarea {
@@ -681,8 +618,9 @@ summary {
 
 .tareasPorDia .dia {
   border: 2px solid purple;
-  border-radius: 5px;
+  border-radius: 12px;
   padding: 0.5rem;
+  background-color: var(--colorBack);
 }
 
 .tarea span {
@@ -733,16 +671,40 @@ summary {
     flex-wrap: nowrap;
   }
 
-  /* .nombreUser > div {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    width: 100%;
-  } */
-
   .nombreUser p {
     padding: 0.5rem;
     font-size: 0.8rem;
+  }
+
+    .usuario-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+        height: 2.5rem;
+    }
+
+    .usuario-info p {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    /* .usuario-info form {
+        width: 9rem; 
+    } */
+
+.usuario-info form {
+    width: auto;
+    display: flex;            
+    justify-content: center;  
+    padding: 0;               
+    margin: 0;                
+  }
+
+  .usuario-info form button {
+    width: auto;              
+    height: 100%; 
+    white-space: nowrap;      
   }
 
   .btnLogout .logout-text {
@@ -762,45 +724,11 @@ summary {
     text-align: center;
   }
 
-  /* .header-titulo {
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .header-titulo h1 {
-    font-size: 1.5rem;
-  }
-
-  .header-titulo .h1-img img {
-    height: 2.5rem;
-  } */
-
-
-
-  /* h1 {
-    font-size: 4.5rem;
-    padding-bottom: 1rem;
-    
-  }
-
-  .header-titulo .h1-img img {
-    height: 3rem !important; 
-  } */
-
-  
   main {
     max-width: 700px;
     grid-template-columns: 1fr;
     height: 100%;
   }
-
-
-
-
-
-
-
   
   h2 {
     padding: 0.2rem;
@@ -840,11 +768,6 @@ summary {
     font-size: 0.9rem;
     line-height: 1.5;
   }
-
-
-
-
-
 
   .formu {
     max-width: 100%;

@@ -1,0 +1,20 @@
+{
+    "es": {
+        "lang": "es",
+        "title": "Nuestros colores preferidos",
+        "init-session" : "Iniciar Sesión",
+        "namelabel": "Nombre"
+    },
+    "en": {
+        "lang": "en",
+        "title": "Our favorite colors",
+        "init-session" : "Login",
+        "namelabel": "Name"
+    },
+    "ca": {
+        "lang": "ca",
+        "title": "Els nostres colors preferits",
+        "init-session" : "Iniciar Sessió",
+        "namelabel": "Nom"
+    }
+}

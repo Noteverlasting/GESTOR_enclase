@@ -125,6 +125,12 @@ require_once 'pdo_connection.php';
             case 'reset':
                 include_once 'modulos/formuResetPass.php';
                 break;
+            case 'revisar':
+                include_once 'modulos/revisarCorreo.php';
+                break;
+            case 'token-caducado':
+                include_once 'modulos/token_caducado.php';
+                break;    
             default:
                 include_once 'modulos/formuLogin.php';
                 break;
